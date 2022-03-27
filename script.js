@@ -12,15 +12,28 @@ const btnNew = document.querySelector('.btn--new');
 const btnRoll = document.querySelector('.btn--roll');
 const btnHold = document.querySelector('.btn--hold');
 
-//Starting vairables
-score0El.textcontent = 0;
-score1El.textcontent = 0;
-diceEl.classList.add('hidden');
-let playing = true;
+let playing, scores, currentScore, activePlayer;
 
-let scores = [0, 0];
-let currentScore = 0;
-let activePlayer = 0;
+//Starting vairables
+const init = function () {
+  playing = true;
+  scores = [0, 0];
+  currentScore = 0;
+  activePlayer = 0;
+
+  score0El.textContent = 0;
+  score1El.textContent = 0;
+  current0E1.textContent = 0;
+  current1E1.textContent = 0;
+
+  player0E1.classList.remove('player--winner');
+  player1E1.classList.remove('player--winner');
+  player0E1.classList.add('player--active');
+  player1E1.classList.remove('player--active');
+  diceEl.classList.add('hidden');
+};
+
+init();
 
 //switch player function
 let switchPlayer = function () {
@@ -80,27 +93,4 @@ btnHold.addEventListener('click', function () {
   }
 });
 
-btnNew.addEventListener('click', function () {
-  //reset game condition
-  playing = true;
-
-  //remove player-winner class
-  document
-    .querySelector(`.player--${activePlayer}`)
-    .classList.remove('player--winner');
-  document
-    .querySelector(`.player--${activePlayer}`)
-    .classList.remove('player--active');
-
-  //make player 1 active again
-  player0E1.classList.add('player--active');
-  activePlayer = 0;
-
-  //reset starting variables
-  scores = [0, 0];
-  current0E1.textContent = 0;
-  current1E1.textContent = 0;
-  score0El.textContent = 0;
-  score1El.textContent = 0;
-  currentScore = 0;
-});
+btnNew.addEventListener('click', init);
